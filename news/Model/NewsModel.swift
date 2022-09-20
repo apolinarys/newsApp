@@ -6,4 +6,13 @@
 //
 
 import Foundation
+import UIKit
 
+struct NewsModel {
+    
+    let author: String?
+    let title: String?
+    let description: String?
+    let date: String?
+    let imageURL: String?
+}

@@ -7,14 +7,14 @@
 
 import Foundation
 
-struct Articles: Decodable {
-    let articles: [Items]
+struct NewsData: Codable {
+    let articles: [Article]
 }
 
-struct Items: Decodable {
-    let author: String
-    let title: String
-    let description: String
-    let publishedAt: String
-    let urlToImage: String
+struct Article: Codable {
+    let author: String?
+    let title: String?
+    let description: String?
+    let publishedAt: String?
+    let urlToImage: String?
 }
