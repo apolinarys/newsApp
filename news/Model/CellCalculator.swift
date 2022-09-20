@@ -19,6 +19,7 @@ final class CellCalculator {
     private let screenWidth: CGFloat = min(UIScreen.main.bounds.width, UIScreen.main.bounds.height)
     
     func sizes(title: String?, description: String?, imageSize: CGSize?) -> Sizes {
+        print(imageSize)
         
         let cardViewWidth = screenWidth - Constants.cardInsets.left - Constants.cardInsets.right
         
@@ -34,8 +35,11 @@ final class CellCalculator {
         
         //MARK: - descriptionLabel Frame
         
-        let topInset = titleLabelFrame.size == CGSize.zero ? Constants.titleInsets.top
-        : titleLabelFrame.maxY
+        var topInset = Constants.cardInsets.top
+        
+        if titleLabelFrame.size != CGSize.zero {
+            topInset += titleLabelFrame.size.height
+        }
         var descriptionLabelFrame = CGRect(origin: CGPoint(x: Constants.cardInsets.left, y: topInset), size: CGSize.zero)
         
         if let text = description, !text.isEmpty {
@@ -47,16 +51,19 @@ final class CellCalculator {
         //MARK: - image frame
         
         let imageTop = max(titleLabelFrame.maxY, descriptionLabelFrame.maxY)
-        var imageFrame = CGRect(origin: CGPoint(x: 0, y: imageTop), size: CGSize.zero)
+        var imageFrame = CGRect(origin: CGPoint(x: 0, y: imageTop), size: CGSize(width: cardViewWidth, height: 0))
         
-        if let imageSize = imageSize {
-            let imageHeight = CGFloat(imageSize.height) / CGFloat(imageSize.width) * cardViewWidth
-            imageFrame.size = CGSize(width: cardViewWidth, height: imageHeight)
-        }
+//        if let imageSize = imageSize {
+//            let imageHeight = CGFloat(imageSize.height) / CGFloat(imageSize.width) * cardViewWidth
+//            imageFrame.size = CGSize(width: cardViewWidth, height: imageHeight)
+//        }
         
         //MARK: - bottomView Frame
         
-        let bottomViewTop = max(imageFrame.maxY, descriptionLabelFrame.maxY)
+        var bottomViewTop = descriptionLabelFrame.maxY
+        if imageSize?.height != 0 {
+            bottomViewTop += imageSize?.height ?? 0
+        }
         let bottomViewFrame = CGRect(x: 0, y: bottomViewTop, width: cardViewWidth, height: Constants.bottomViewHight)
         
         //MARK: - totalHeight

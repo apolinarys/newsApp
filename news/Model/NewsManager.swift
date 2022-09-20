@@ -8,22 +8,10 @@
 import Foundation
 import UIKit
 
-protocol NewsManagerDelegate {
-    func updateUI(newsModel: NewsModel, indexPath: IndexPath, cell: NewsTableViewCell)
-}
-
 struct NewsManager {
     
     let baseURL = "https://newsapi.org/v2/top-headlines?country=us&pageSize=100&apiKey="
     let apiKey = "7b165f204f464ee98de2660c031777b6"
-    
-    func request(completion: @escaping(Data?, Error?) -> Void) {
-        let urlString = baseURL + apiKey
-        guard let url = URL(string: urlString) else {return}
-        let request = URLRequest(url: url)
-        let task = createDataTask(from: request, completion: completion)
-        task.resume()
-    }
     
     func getFeed(response: @escaping (NewsData?) -> Void) {
         
@@ -36,6 +24,14 @@ struct NewsManager {
             let decoded = self.decodeJSON(type: NewsData.self, from: data)
             response(decoded)
         }
+    }
+    
+    private func request(completion: @escaping(Data?, Error?) -> Void) {
+        let urlString = baseURL + apiKey
+        guard let url = URL(string: urlString) else {return}
+        let request = URLRequest(url: url)
+        let task = createDataTask(from: request, completion: completion)
+        task.resume()
     }
     
     private func decodeJSON<T: Decodable>(type: T.Type, from: Data?) -> T? {

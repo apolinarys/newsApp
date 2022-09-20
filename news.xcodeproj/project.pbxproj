@@ -20,6 +20,7 @@
 		FAD2C76E28D8C8BE00B3CE3F /* CellCalculator.swift in Sources */ = {isa = PBXBuildFile; fileRef = FAD2C76D28D8C8BE00B3CE3F /* CellCalculator.swift */; };
 		FAD2C77128D8CDA300B3CE3F /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = FAD2C77028D8CDA300B3CE3F /* Constants.swift */; };
 		FAD2C77328D9BBAA00B3CE3F /* WebImageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = FAD2C77228D9BBAA00B3CE3F /* WebImageView.swift */; };
+		FAD2C77528D9DE0300B3CE3F /* CellViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = FAD2C77428D9DE0300B3CE3F /* CellViewModel.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -38,6 +39,7 @@
 		FAD2C76D28D8C8BE00B3CE3F /* CellCalculator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CellCalculator.swift; sourceTree = "<group>"; };
 		FAD2C77028D8CDA300B3CE3F /* Constants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Constants.swift; sourceTree = "<group>"; };
 		FAD2C77228D9BBAA00B3CE3F /* WebImageView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WebImageView.swift; sourceTree = "<group>"; };
+		FAD2C77428D9DE0300B3CE3F /* CellViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CellViewModel.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -91,6 +93,7 @@
 				FA90D5BA28D212A0008B6DA0 /* NewsData.swift */,
 				FA90D5BC28D2193A008B6DA0 /* NewsModel.swift */,
 				FAD2C76D28D8C8BE00B3CE3F /* CellCalculator.swift */,
+				FAD2C77428D9DE0300B3CE3F /* CellViewModel.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -193,6 +196,7 @@
 				FA90D5BD28D2193A008B6DA0 /* NewsModel.swift in Sources */,
 				FA90D5A028D20450008B6DA0 /* ViewController.swift in Sources */,
 				FA90D59C28D20450008B6DA0 /* AppDelegate.swift in Sources */,
+				FAD2C77528D9DE0300B3CE3F /* CellViewModel.swift in Sources */,
 				FA90D5B328D2070A008B6DA0 /* NewsTableViewCell.swift in Sources */,
 				FAD2C77328D9BBAA00B3CE3F /* WebImageView.swift in Sources */,
 				FA90D5A628D20450008B6DA0 /* news.xcdatamodeld in Sources */,

@@ -10,9 +10,14 @@ import UIKit
 
 struct NewsModel {
     
-    let author: String?
-    let title: String?
-    let description: String?
-    let date: String?
-    let imageURL: String?
+    struct Cell{
+        let author: String?
+        let title: String?
+        let description: String?
+        let date: String?
+        let imageURL: String?
+        var sizes: Sizes
+    }
+    
+    let cells: [Cell]
 }

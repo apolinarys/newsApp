@@ -9,6 +9,8 @@ import UIKit
 
 class NewsTableViewCell: UITableViewCell {
     
+    static let reuseId = "NewsTableViewCell"
+    
     let cardView: UIView = {
         let view = UIView()
         view.translatesAutoresizingMaskIntoConstraints = false
@@ -99,25 +101,17 @@ class NewsTableViewCell: UITableViewCell {
         setupConstraints()
     }
     
-    func set(newsModel: NewsModel) {
-        let cellCalculator = CellCalculator()
-        var imageSize = CGSize.zero
-        DispatchQueue.main.async {
+    func set(newsModel: NewsModel.Cell) {
             self.newsImage.set(imageURL: newsModel.imageURL)
             self.titleLabel.text = newsModel.title
             self.descriptionLabel.text = newsModel.description
             self.authorLabel.text = newsModel.author
             self.dateLabel.text = newsModel.date
-            if let image = self.newsImage.image{
-                imageSize = CGSize(width: image.size.height, height: image.size.width)
-            }
-            let sizes = cellCalculator.sizes(title: newsModel.title, description: newsModel.description, imageSize: imageSize)
             
-            self.newsImage.frame = sizes.imageFrame
-            self.titleLabel.frame = sizes.titleLabelFrame
-            self.descriptionLabel.frame = sizes.descriptionLabelFrame
-            self.bottomView.frame = sizes.bottomViewFrame
-        }
+            self.newsImage.frame = newsModel.sizes.imageFrame
+            self.titleLabel.frame = newsModel.sizes.titleLabelFrame
+            self.descriptionLabel.frame = newsModel.sizes.descriptionLabelFrame
+            self.bottomView.frame = newsModel.sizes.bottomViewFrame
     }
     
     required init?(coder: NSCoder) {

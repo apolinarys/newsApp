@@ -7,54 +7,62 @@
 
 import UIKit
 
-class ViewController: UIViewController, UITableViewDataSource, UITableViewDelegate, NewsManagerDelegate {
-    func updateUI(newsModel: NewsModel, indexPath: IndexPath, cell: NewsTableViewCell) {
-        cell.set(newsModel: newsModel)
-    }
-    
+protocol DisplayNews: AnyObject {
+    func displayData(newsModel: NewsModel)
+}
+
+class ViewController: UIViewController, DisplayNews {
     
     let cellId = "NewsTableViewCellIdentifier"
     
-    var newsManager = NewsManager()
-    var newsModel: NewsModel?
+    var cellViewModel = CellViewModel()
+    private var newsModel = NewsModel(cells: [])
+    
+    private lazy var tableView: UITableView = {
+        let tableView = UITableView(frame: view.frame)
+        tableView.translatesAutoresizingMaskIntoConstraints = false
+        tableView.register(NewsTableViewCell.self, forCellReuseIdentifier: NewsTableViewCell.reuseId)
+        return tableView
+    }()
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        // Do any additional setup after loading the view.
-        
-        view.addSubview(tableView)
-        setupConstraints()
+        // Do any additional setup after loading the view
+        cellViewModel.viewController = self
+        self.view.addSubview(tableView)
+        view.backgroundColor = .blue
         tableView.delegate = self
         tableView.dataSource = self
         
-    }
-
-    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return 1
-    }
-    
-    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: "NewsTableViewCellIdentifier", for: indexPath) as! NewsTableViewCell
-        newsManager.delegate = self
-        newsManager.getData(indexPath: indexPath, cell: cell)
+        tableView.separatorStyle = .none
         
-        return cell
+        cellViewModel.presentData()
     }
     
-    private var tableView: UITableView = {
-        let tableView = UITableView()
-        tableView.translatesAutoresizingMaskIntoConstraints = false
-        tableView.register(NewsTableViewCell.self, forCellReuseIdentifier: "NewsTableViewCellIdentifier")
-        return tableView
-    }()
-    
-    func setupConstraints() {
-        NSLayoutConstraint.activate([
-            tableView.topAnchor.constraint(equalTo: view.topAnchor),
-            tableView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
-            tableView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
-            tableView.bottomAnchor.constraint(equalTo: view.bottomAnchor)
-        ])
+    func displayData(newsModel: NewsModel) {
+        print("Display data")
+        self.newsModel = newsModel
+        tableView.reloadData()
     }
 }
 
+extension ViewController: UITableViewDataSource, UITableViewDelegate {
+    
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        print(newsModel.cells.count)
+        return newsModel.cells.count
+    }
+    
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        let cell = tableView.dequeueReusableCell(withIdentifier: NewsTableViewCell.reuseId, for: indexPath) as! NewsTableViewCell
+        let cellModel = newsModel.cells[indexPath.row]
+        cell.set(newsModel: cellModel)
+        return cell
+    }
+    
+    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
+        let cellModel = newsModel.cells[indexPath.row]
+        return cellModel.sizes.totalHeight
+    }
+    
+}
