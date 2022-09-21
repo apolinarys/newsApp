@@ -16,7 +16,6 @@ struct NewsModel {
         let description: String?
         let date: String?
         let imageURL: String?
-        var sizes: Sizes
     }
     
     let cells: [Cell]

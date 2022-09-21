@@ -34,7 +34,7 @@ class ViewController: UIViewController, DisplayNews {
         tableView.delegate = self
         tableView.dataSource = self
         
-        tableView.separatorStyle = .none
+//        tableView.separatorStyle = .none
         
         cellViewModel.presentData()
     }
@@ -59,10 +59,6 @@ extension ViewController: UITableViewDataSource, UITableViewDelegate {
         cell.set(newsModel: cellModel)
         return cell
     }
-    
-    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-        let cellModel = newsModel.cells[indexPath.row]
-        return cellModel.sizes.totalHeight
-    }
+
     
 }

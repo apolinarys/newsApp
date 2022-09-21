@@ -39,26 +39,26 @@ class CellViewModel{
     
     private func cellViewModel(from newsArticle: Article) -> NewsModel.Cell {
         
-        var imageSize = CGSize.zero
+        let dateString: String?
         
-        if let imageURL = newsArticle.urlToImage, let url = URL(string: imageURL) {
-            let dataTask = URLSession.shared.dataTask(with: url) { data, response, error in
-                
-                    if let data = data, let _ = response {
-                        let image = UIImage(data: data)
-                        imageSize = image?.size ?? CGSize.zero
-                    }
-            }
-            dataTask.resume()
+        if let string = newsArticle.publishedAt {
+
+            let dateFormatter = DateFormatter()
+            let tempLocale = dateFormatter.locale // save locale temporarily
+            dateFormatter.locale = Locale(identifier: "en_US_POSIX") // set locale to reliable US_POSIX
+            dateFormatter.dateFormat = "yyyy-MM-dd'T'HH:mm:ssZ"
+            let date = dateFormatter.date(from: string)!
+            dateFormatter.dateFormat = "dd-MM-yyyy HH:mm:ss"
+            dateFormatter.locale = tempLocale // reset the locale
+            dateString = dateFormatter.string(from: date)
+        } else {
+            dateString = nil
         }
-        
-        let sizes = cellCalculator.sizes(title: newsArticle.title, description: newsArticle.description, imageSize: imageSize)
         
         return NewsModel.Cell(author: newsArticle.author,
                               title: newsArticle.title,
                               description: newsArticle.description,
-                              date: newsArticle.publishedAt,
-                              imageURL: newsArticle.urlToImage,
-                              sizes: sizes)
+                              date: dateString,
+                              imageURL: newsArticle.urlToImage)
     }
 }

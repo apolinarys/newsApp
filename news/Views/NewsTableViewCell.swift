@@ -22,6 +22,10 @@ class NewsTableViewCell: UITableViewCell {
         let label = UILabel()
         label.textColor = .gray
         label.font = .systemFont(ofSize: 20, weight: .semibold)
+        label.translatesAutoresizingMaskIntoConstraints = false
+        label.numberOfLines = 0
+        label.text = "Title"
+        label.textAlignment = .center
         label.numberOfLines = 0
         return label
     }()
@@ -29,8 +33,11 @@ class NewsTableViewCell: UITableViewCell {
     let descriptionLabel: UILabel = {
         let label = UILabel()
         label.textColor = .gray
-        label.numberOfLines = 0
         label.font = .systemFont(ofSize: 15, weight: .medium)
+        label.translatesAutoresizingMaskIntoConstraints = false
+        label.numberOfLines = 0
+        label.text = "Description"
+        label.textAlignment = .center
         return label
     }()
     
@@ -40,13 +47,10 @@ class NewsTableViewCell: UITableViewCell {
         imageView.layer.borderColor = UIColor.lightGray.cgColor
         imageView.layer.cornerRadius = 5
         imageView.clipsToBounds = true
+        imageView.image = UIImage(named: "noImage")
+        imageView.translatesAutoresizingMaskIntoConstraints = false
         imageView.translatesAutoresizingMaskIntoConstraints = false
         return imageView
-    }()
-    
-    let bottomView: UIView = {
-        let view = UIView()
-        return view
     }()
     
     let authorLabel: UILabel = {
@@ -63,25 +67,43 @@ class NewsTableViewCell: UITableViewCell {
         label.textColor = .gray
         label.numberOfLines = 0
         label.font = .systemFont(ofSize: 12, weight: .light)
+        label.textAlignment = .right
         label.translatesAutoresizingMaskIntoConstraints = false
         return label
     }()
     
     private func setupConstraints() {
+        
+        let size = newsImage.updateImageSize(image: UIImage(named: "noImage")!)
         NSLayoutConstraint.activate([
             
             cardView.topAnchor.constraint(equalTo: contentView.topAnchor),
-            cardView.bottomAnchor.constraint(equalTo: contentView.bottomAnchor, constant: 12),
+            cardView.bottomAnchor.constraint(equalTo: contentView.bottomAnchor, constant: -12),
             cardView.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 8),
-            cardView.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: 8),
+            cardView.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -8),
             
-            authorLabel.leadingAnchor.constraint(equalTo: bottomView.leadingAnchor, constant: 8),
-            authorLabel.bottomAnchor.constraint(equalTo: bottomView.bottomAnchor, constant: 0),
-            authorLabel.heightAnchor.constraint(equalToConstant: Constants.bottomViewHight),
+            titleLabel.topAnchor.constraint(equalTo: cardView.topAnchor, constant: 8),
+            titleLabel.leadingAnchor.constraint(equalTo: cardView.leadingAnchor, constant: 8),
+            titleLabel.trailingAnchor.constraint(equalTo: cardView.trailingAnchor, constant: -8),
             
-            dateLabel.trailingAnchor.constraint(equalTo: bottomView.trailingAnchor, constant: 8),
-            dateLabel.bottomAnchor.constraint(equalTo: bottomView.bottomAnchor, constant: 0),
-            dateLabel.heightAnchor.constraint(equalToConstant: Constants.bottomViewHight),
+            descriptionLabel.topAnchor.constraint(equalTo: titleLabel.bottomAnchor, constant: 8),
+            descriptionLabel.leadingAnchor.constraint(equalTo: cardView.leadingAnchor, constant: 8),
+            descriptionLabel.trailingAnchor.constraint(equalTo: cardView.trailingAnchor, constant: -8),
+            
+            newsImage.topAnchor.constraint(equalTo: descriptionLabel.bottomAnchor, constant: 8),
+            newsImage.leadingAnchor.constraint(equalTo: cardView.leadingAnchor, constant: 8),
+            newsImage.heightAnchor.constraint(equalToConstant: size.height),
+            newsImage.widthAnchor.constraint(equalToConstant: size.width),
+            
+            authorLabel.leadingAnchor.constraint(equalTo: cardView.leadingAnchor, constant: 8),
+            authorLabel.trailingAnchor.constraint(equalTo: dateLabel.leadingAnchor, constant: 8),
+            authorLabel.bottomAnchor.constraint(equalTo: cardView.bottomAnchor, constant: -8),
+            authorLabel.topAnchor.constraint(equalTo: newsImage.bottomAnchor, constant: 8),
+            
+            dateLabel.trailingAnchor.constraint(equalTo: cardView.trailingAnchor, constant: -8),
+            dateLabel.bottomAnchor.constraint(equalTo: cardView.bottomAnchor, constant: -8),
+            dateLabel.topAnchor.constraint(equalTo: newsImage.bottomAnchor, constant: 8),
+            dateLabel.widthAnchor.constraint(equalToConstant: 135)
         ])
     }
     
@@ -89,10 +111,9 @@ class NewsTableViewCell: UITableViewCell {
         contentView.addSubview(cardView)
         cardView.addSubview(titleLabel)
         cardView.addSubview(descriptionLabel)
-        cardView.addSubview(bottomView)
         cardView.addSubview(newsImage)
-        bottomView.addSubview(authorLabel)
-        bottomView.addSubview(dateLabel)
+        cardView.addSubview(authorLabel)
+        cardView.addSubview(dateLabel)
     }
     
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
@@ -107,11 +128,10 @@ class NewsTableViewCell: UITableViewCell {
             self.descriptionLabel.text = newsModel.description
             self.authorLabel.text = newsModel.author
             self.dateLabel.text = newsModel.date
-            
-            self.newsImage.frame = newsModel.sizes.imageFrame
-            self.titleLabel.frame = newsModel.sizes.titleLabelFrame
-            self.descriptionLabel.frame = newsModel.sizes.descriptionLabelFrame
-            self.bottomView.frame = newsModel.sizes.bottomViewFrame
+    }
+    
+    override func prepareForReuse() {
+        newsImage.image = UIImage(named: "noImage")
     }
     
     required init?(coder: NSCoder) {
