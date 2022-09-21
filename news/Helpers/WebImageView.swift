@@ -36,9 +36,9 @@ class WebImageView: UIImageView {
                     let image = UIImage(data: data)
                     self?.image = image
                     if let image = image {
-                        let size = self!.updateImageSize(image: image)
-                        self!.widthAnchor.constraint(equalToConstant: size.width).isActive = true
-                        self!.heightAnchor.constraint(equalToConstant: size.height).isActive = true
+                        let size = self?.updateImageSize(image: image)
+                        self?.widthAnchor.constraint(equalToConstant: size?.width ?? 0).isActive = true
+                        self?.heightAnchor.constraint(equalToConstant: size?.height ?? 0).isActive = true
                     }
                     self?.handleLoadedImage(data: data, response: response)
                 }

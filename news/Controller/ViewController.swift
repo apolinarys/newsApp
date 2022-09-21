@@ -14,7 +14,7 @@ protocol DisplayNews: AnyObject {
 
 class ViewController: UIViewController, DisplayNews {
     
-    
+    var newsNumber = 20
     
     let cellId = "NewsTableViewCellIdentifier"
     
@@ -67,7 +67,11 @@ extension ViewController: UITableViewDataSource, UITableViewDelegate {
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         print(newsModel.cells.count)
-        return newsModel.cells.count
+        if newsModel.cells.count > newsNumber {
+            return newsNumber
+        } else {
+            return newsModel.cells.count
+        }
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
@@ -93,6 +97,10 @@ extension ViewController: UITableViewDataSource, UITableViewDelegate {
     }
     
     func scrollViewDidEndDragging(_ scrollView: UIScrollView, willDecelerate decelerate: Bool) {
-        <#code#>
+        if scrollView.contentOffset.y > scrollView.contentSize.height / 1.1 {
+            newsNumber += 20
+            print("more data")
+            tableView.reloadData()
+        }
     }
 }

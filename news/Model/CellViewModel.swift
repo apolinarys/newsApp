@@ -25,7 +25,7 @@ class CellViewModel{
         }
     }
     
-    func getData() {
+    private func getData() {
         print("get data")
         let cells = newsData?.articles.map({ newsArticle in
             cellViewModel(from: newsArticle)
