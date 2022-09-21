@@ -21,6 +21,7 @@
 		FAD2C77128D8CDA300B3CE3F /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = FAD2C77028D8CDA300B3CE3F /* Constants.swift */; };
 		FAD2C77328D9BBAA00B3CE3F /* WebImageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = FAD2C77228D9BBAA00B3CE3F /* WebImageView.swift */; };
 		FAD2C77528D9DE0300B3CE3F /* CellViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = FAD2C77428D9DE0300B3CE3F /* CellViewModel.swift */; };
+		FAD2C77728DB5C5C00B3CE3F /* WebViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FAD2C77628DB5C5B00B3CE3F /* WebViewController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -40,6 +41,7 @@
 		FAD2C77028D8CDA300B3CE3F /* Constants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Constants.swift; sourceTree = "<group>"; };
 		FAD2C77228D9BBAA00B3CE3F /* WebImageView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WebImageView.swift; sourceTree = "<group>"; };
 		FAD2C77428D9DE0300B3CE3F /* CellViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CellViewModel.swift; sourceTree = "<group>"; };
+		FAD2C77628DB5C5B00B3CE3F /* WebViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WebViewController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -110,6 +112,7 @@
 			isa = PBXGroup;
 			children = (
 				FA90D59F28D20450008B6DA0 /* ViewController.swift */,
+				FAD2C77628DB5C5B00B3CE3F /* WebViewController.swift */,
 			);
 			path = Controller;
 			sourceTree = "<group>";
@@ -204,6 +207,7 @@
 				FA90D5B528D211D0008B6DA0 /* NewsManager.swift in Sources */,
 				FA90D59E28D20450008B6DA0 /* SceneDelegate.swift in Sources */,
 				FA90D5BB28D212A0008B6DA0 /* NewsData.swift in Sources */,
+				FAD2C77728DB5C5C00B3CE3F /* WebViewController.swift in Sources */,
 				FAD2C76E28D8C8BE00B3CE3F /* CellCalculator.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

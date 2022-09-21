@@ -59,6 +59,7 @@ class CellViewModel{
                               title: newsArticle.title,
                               description: newsArticle.description,
                               date: dateString,
+                              url: newsArticle.url,
                               imageURL: newsArticle.urlToImage)
     }
 }

@@ -114,6 +114,7 @@ class NewsTableViewCell: UITableViewCell {
         cardView.addSubview(newsImage)
         cardView.addSubview(authorLabel)
         cardView.addSubview(dateLabel)
+        contentView.backgroundColor = .clear
     }
     
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
@@ -123,11 +124,22 @@ class NewsTableViewCell: UITableViewCell {
     }
     
     func set(newsModel: NewsModel.Cell) {
-            self.newsImage.set(imageURL: newsModel.imageURL)
+        if let url = newsModel.imageURL {
+            self.newsImage.set(imageURL: url)
+            newsImage.isHidden = false
+        } else {
+            newsImage.isHidden = true
+            newsImage.heightAnchor.constraint(equalToConstant: 0).isActive = true
+        }
             self.titleLabel.text = newsModel.title
             self.descriptionLabel.text = newsModel.description
             self.authorLabel.text = newsModel.author
             self.dateLabel.text = newsModel.date
+        
+        cardView.layer.cornerRadius = 10
+        cardView.clipsToBounds = true
+        backgroundColor = .clear
+        selectionStyle = .none
     }
     
     override func prepareForReuse() {

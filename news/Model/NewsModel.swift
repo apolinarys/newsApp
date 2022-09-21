@@ -15,6 +15,7 @@ struct NewsModel {
         let title: String?
         let description: String?
         let date: String?
+        let url: String?
         let imageURL: String?
     }
     
