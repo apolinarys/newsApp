@@ -127,11 +127,17 @@ class NewsTableViewCell: UITableViewCell {
         if let url = newsModel.imageURL {
             self.newsImage.set(imageURL: url)
             newsImage.isHidden = false
+        } else if let data = newsModel.image {
+            if let image = UIImage(data: data) {
+                newsImage.image = image
+                let sizes = newsImage.updateImageSize(image: image)
+                newsImage.heightAnchor.constraint(equalToConstant: sizes.height).isActive = true
+                newsImage.widthAnchor.constraint(equalToConstant: sizes.width).isActive = true
+            }
         } else {
             newsImage.isHidden = true
             newsImage.heightAnchor.constraint(equalToConstant: 0).isActive = true
         }
-        
         
             self.titleLabel.text = newsModel.title
             self.descriptionLabel.text = newsModel.description

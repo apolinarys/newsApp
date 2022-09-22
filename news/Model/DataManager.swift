@@ -67,6 +67,7 @@ struct DataManager {
             }
             
             try? backgroundContext.save()
+            print(newItem)
         }
         print("cell saved")
     }
