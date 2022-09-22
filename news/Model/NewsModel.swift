@@ -17,7 +17,8 @@ struct NewsModel {
         let date: String?
         let url: String?
         let imageURL: String?
+        let image: Data?
     }
     
-    let cells: [Cell]
+    var cells: [Cell]
 }

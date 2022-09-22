@@ -7,6 +7,7 @@
 
 import UIKit
 import WebKit
+import CoreData
 
 protocol DisplayNews: AnyObject {
     func displayData(newsModel: NewsModel)
@@ -19,7 +20,8 @@ class ViewController: UIViewController, DisplayNews {
     let cellId = "NewsTableViewCellIdentifier"
     
     var cellViewModel = CellViewModel()
-    private var newsModel = NewsModel(cells: [])
+    var newsModel = NewsModel(cells: [])
+    let dataManager = DataManager()
     
     private lazy var tableView: UITableView = {
         let tableView = UITableView(frame: view.frame)
@@ -42,7 +44,14 @@ class ViewController: UIViewController, DisplayNews {
     }
 
     override func viewDidLoad() {
+        
         super.viewDidLoad()
+        
+        newsModel.cells = dataManager.loadingData() ?? []
+         
+        if newsModel.cells.count != 0{
+            tableView.reloadData()
+        }
         // Do any additional setup after loading the view
         cellViewModel.viewController = self
         self.view.addSubview(tableView)
@@ -59,9 +68,14 @@ class ViewController: UIViewController, DisplayNews {
         print("Display data")
         self.newsModel = newsModel
         tableView.reloadData()
+        SceneDelegate.newsItems = newsModel.cells
         refreshControl.endRefreshing()
     }
+
+
 }
+
+//MARK: - Extension
 
 extension ViewController: UITableViewDataSource, UITableViewDelegate {
     

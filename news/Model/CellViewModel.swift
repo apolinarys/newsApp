@@ -6,12 +6,14 @@
 //
 
 import UIKit
+import CoreData
 
 class CellViewModel{
     
+    let dataManager = DataManager()
+    
     var viewController: ViewController?
     var newsData: NewsData?
-    let cellCalculator = CellCalculator()
     
     func presentData() {
         let newsManager = NewsManager()
@@ -32,7 +34,6 @@ class CellViewModel{
         })
         if let cells = cells {
             let newsModel = NewsModel(cells: cells)
-            print(newsModel)
             viewController?.displayData(newsModel: newsModel)
         }
     }
@@ -60,6 +61,8 @@ class CellViewModel{
                               description: newsArticle.description,
                               date: dateString,
                               url: newsArticle.url,
-                              imageURL: newsArticle.urlToImage)
+                              imageURL: newsArticle.urlToImage,
+                              image: nil)
     }
+    
 }

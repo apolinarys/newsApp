@@ -131,6 +131,8 @@ class NewsTableViewCell: UITableViewCell {
             newsImage.isHidden = true
             newsImage.heightAnchor.constraint(equalToConstant: 0).isActive = true
         }
+        
+        
             self.titleLabel.text = newsModel.title
             self.descriptionLabel.text = newsModel.description
             self.authorLabel.text = newsModel.author
@@ -143,6 +145,7 @@ class NewsTableViewCell: UITableViewCell {
     }
     
     override func prepareForReuse() {
+        super.prepareForReuse()
         newsImage.image = UIImage(named: "noImage")
     }
     

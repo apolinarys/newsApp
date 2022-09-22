@@ -9,7 +9,10 @@ import UIKit
 
 class SceneDelegate: UIResponder, UIWindowSceneDelegate {
 
+    let dataManager = DataManager()
+    let vc = ViewController()
     var window: UIWindow?
+    static var newsItems: [NewsModel.Cell] = []
 
 
     func scene(_ scene: UIScene, willConnectTo session: UISceneSession, options connectionOptions: UIScene.ConnectionOptions) {
@@ -43,11 +46,15 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
     }
 
     func sceneWillEnterForeground(_ scene: UIScene) {
-        // Called as the scene transitions from the background to the foreground.
-        // Use this method to undo the changes made on entering the background.
+        
     }
 
     func sceneDidEnterBackground(_ scene: UIScene) {
+        
+        print("saving data")
+        for i in 0...19 {
+            dataManager.saveData(cell: SceneDelegate.newsItems[i])
+        }
         // Called as the scene transitions from the foreground to the background.
         // Use this method to save data, release shared resources, and store enough scene-specific state information
         // to restore the scene back to its current state.

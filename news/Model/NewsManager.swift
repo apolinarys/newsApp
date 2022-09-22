@@ -10,7 +10,7 @@ import UIKit
 
 struct NewsManager {
     
-    let baseURL = "https://newsapi.org/v2/top-headlines?country=us&pageSize=100&apiKey="
+    let baseURL = "https://newsapi.org/v2/top-headlines?language=en&pageSize=100&apiKey="
     let apiKey = "7b165f204f464ee98de2660c031777b6"
     
     func getFeed(response: @escaping (NewsData?) -> Void) {
